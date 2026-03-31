@@ -286,9 +286,6 @@ export default function App() {
             <div>
               <p className="eyebrow">Contact</p>
               <h2>Let’s make your business look like it belongs at the top.</h2>
-              <p>
-                Send a project inquiry and the backend will save it on the server instantly. You can later wire this into email, a CRM, or WhatsApp automation.
-              </p>
               <div className="contact-list">
                 <div>
                   <strong>Email</strong>
