@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
+export default function App() {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+  console.log("API URL:", API_URL);
 const fallbackPackages = [
   {
     name: 'Starter Presence',
@@ -77,7 +79,7 @@ export default function App() {
   useEffect(() => {
     async function loadPackages() {
       try {
-        const response = await fetch('/api/packages');
+        const response = await fetch(`${API_URL}/api/packages`);
         if (!response.ok) throw new Error('Could not load packages');
         const data = await response.json();
         if (Array.isArray(data) && data.length > 0) {
@@ -102,7 +104,7 @@ export default function App() {
     setStatus('');
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(`${API_URL}/api/contact`, { {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
