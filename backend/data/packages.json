@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Starter Presence",
+    "price": "From GHS 4,000",
+    "monthly": "GHS 1,200 / month",
+    "description": "A polished first website for businesses that need a premium online presence.",
+    "features": [
+      "Up to 5 pages",
+      "Mobile responsive design",
+      "Basic SEO setup",
+      "Monthly edits and maintenance",
+      "Performance checks"
+    ]
+  },
+  {
+    "name": "Growth Package",
+    "price": "From GHS 7,000",
+    "monthly": "GHS 3,000 / month",
+    "description": "For brands ready for web design plus digital marketing support.",
+    "features": [
+      "Expanded custom website",
+      "Brand messaging support",
+      "Social media direction",
+      "Monthly analytics report",
+      "Content and campaign planning"
+    ],
+    "featured": true
+  },
+  {
+    "name": "Custom Luxury Build",
+    "price": "Custom quote",
+    "monthly": "Tailored support plan",
+    "description": "A high-touch build for businesses that want a fully bespoke digital presence.",
+    "features": [
+      "Custom design system",
+      "Advanced conversion flow",
+      "Brand strategy",
+      "Campaign consulting",
+      "Priority support"
+    ]
+  }
+]
