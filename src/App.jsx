@@ -288,8 +288,8 @@ export default function App() {
               <h2>Let’s make your business look like it belongs at the top.</h2>
               <div className="contact-list">
                 <div>
-                  <strong>Email</strong>
-                  <span>hello@ttwenterprises.com</span>
+                  <strong>WhatsApp</strong>
+                  <span>+233 050 072 9916</span>
                 </div>
                 <div>
                   <strong>Instagram</strong>
@@ -297,7 +297,7 @@ export default function App() {
                 </div>
                 <div>
                   <strong>Location</strong>
-                  <span>Boston / Accra</span>
+                  <span>Accra, Ghana</span>
                 </div>
               </div>
             </div>
