@@ -15,7 +15,9 @@ const port = process.env.PORT || 5001;
 const inquiriesPath = path.join(__dirname, 'data', 'inquiries.json');
 const packagesPath = path.join(__dirname, 'data', 'packages.json');
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://ttwenterprisesgh.vercel.app'
+}));
 app.use(express.json());
 
 app.get('/api/health', (_req, res) => {
