@@ -1,34 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const whatsappUrl = 'https://wa.me/233500729916?text=Hi%20TTW%20Enterprises%2C%20I%20want%20to%20start%20a%20project.';
-
-const fallbackPackages = [
-  {
-    name: 'Starter Presence',
-    price: 'From GHS 4,000',
-    monthly: 'GHS 1,200 / month',
-    description: 'A polished first website for businesses that need a premium online presence.',
-    features: ['Up to 5 pages', 'Mobile responsive design', 'Basic SEO setup', 'Monthly edits and maintenance', 'Performance checks'],
-    tone: 'deep',
-  },
-  {
-    name: 'Growth Package',
-    price: 'From GHS 7,000',
-    monthly: 'GHS 3,000 / month',
-    description: 'For brands ready for web design plus digital marketing support.',
-    features: ['Expanded custom website', 'Brand messaging support', 'Social media direction', 'Monthly analytics report', 'Content and campaign planning'],
-    featured: true,
-    tone: 'gold',
-  },
-  {
-    name: 'Custom Luxury Build',
-    price: 'Custom quote',
-    monthly: 'Tailored support plan',
-    description: 'A high-touch build for businesses that want a fully bespoke digital presence.',
-    features: ['Custom design system', 'Advanced conversion flow', 'Brand strategy', 'Campaign consulting', 'Priority support'],
-    tone: 'cream',
-  },
-];
+const whatsappUrl = 'https://wa.me/233500729916?text=Hi%20TTW%20Enterprises%2C%20I%20want%20a%20custom%20quote%20for%20my%20business.';
 
 const serviceCards = [
   {
@@ -53,46 +25,55 @@ const serviceCards = [
   },
 ];
 
+const quoteOptions = [
+  {
+    name: 'Website Builds',
+    description: 'Landing pages, full business websites, service pages, mobile responsive design, basic SEO, and launch support.',
+    features: ['Custom page structure', 'Mobile-first design', 'WhatsApp-ready contact flow', 'Launch and refinement'],
+  },
+  {
+    name: 'Brand Presence',
+    description: 'Visual direction, messaging, layout style, and digital presentation for businesses that need to look more established.',
+    features: ['Brand positioning', 'Design direction', 'Copy and messaging', 'Premium customer perception'],
+    featured: true,
+  },
+  {
+    name: 'Monthly Digital Support',
+    description: 'Ongoing support for brands that need edits, campaign planning, social media direction, and digital growth structure.',
+    features: ['Website maintenance', 'Content direction', 'Analytics review', 'Growth planning'],
+  },
+];
+
 const processSteps = [
-  ['01', 'Discovery and positioning', 'We define the offer, audience, and the feel your brand should communicate.'],
-  ['02', 'Design and build', 'We create a premium site experience that fits your ambition and business goals.'],
-  ['03', 'Launch and refine', 'We go live, support the site, and improve your digital presence over time.'],
-  ['04', 'Support and growth', 'We keep your presence updated with maintenance, reporting, and digital guidance.'],
+  ['01', 'Message us on WhatsApp', 'Tell us your business name, what you do, and what you want your digital presence to improve.'],
+  ['02', 'Scope the project', 'We define the pages, services, brand direction, timeline, and level of support needed.'],
+  ['03', 'Custom quote', 'You receive pricing based on your exact project instead of a fixed one-size-fits-all package.'],
+  ['04', 'Design and launch', 'We build, refine, launch, and support the digital presence so the brand looks serious.'],
 ];
 
 const showcaseItems = [
-  ['Website Design', 'Clean digital storefronts for brands that need trust before the first conversation.'],
-  ['Brand Presence', 'Visual direction, messaging, and structure that make businesses feel established.'],
-  ['Digital Growth', 'Content planning and campaign systems that turn attention into action.'],
+  {
+    title: 'Wonders Studio',
+    label: 'Client Website',
+    text: 'A clean digital presence for a modern barber studio, built to make the business easier to discover and contact.',
+    href: 'https://wondersstudio.vercel.app',
+  },
+  {
+    title: 'Website Design Systems',
+    label: 'Service Direction',
+    text: 'Clean digital storefronts for brands that need trust before the first conversation.',
+    href: '#contact',
+  },
+  {
+    title: 'Brand Presence Builds',
+    label: 'Creative Direction',
+    text: 'Visual direction, messaging, and structure that make businesses feel established.',
+    href: '#contact',
+  },
 ];
 
 export default function App() {
-  const [packages, setPackages] = useState(fallbackPackages);
-  const [status, setStatus] = useState('');
-  const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    business: '',
-    service: 'Website Design',
-    message: '',
-  });
-
-  useEffect(() => {
-    async function loadPackages() {
-      try {
-        const response = await fetch('/api/packages');
-        if (!response.ok) throw new Error('Could not load packages');
-        const data = await response.json();
-        if (Array.isArray(data) && data.length > 0) setPackages(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    loadPackages();
-  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -111,35 +92,6 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormData((current) => ({ ...current, [name]: value }));
-  }
-
-  async function handleSubmit(event) {
-    event.preventDefault();
-    setLoading(true);
-    setStatus('');
-
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message || 'Something went wrong.');
-
-      setStatus('Your project inquiry was sent successfully.');
-      setFormData({ name: '', email: '', business: '', service: 'Website Design', message: '' });
-    } catch (error) {
-      setStatus('The form could not send yet. Please message us directly on WhatsApp.');
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <div className="site-shell" id="home">
       <nav className="floating-nav glass-nav">
@@ -151,19 +103,19 @@ export default function App() {
         <div className="desktop-links">
           <a href="#about">About</a>
           <a href="#services">Services</a>
-          <a href="#packages">Packages</a>
+          <a href="#work">Work</a>
           <a href="#process">Process</a>
           <a href="#contact">Contact</a>
         </div>
 
-        <a className="nav-cta" href={whatsappUrl} target="_blank" rel="noreferrer">Get a Quote</a>
+        <a className="nav-cta" href={whatsappUrl} target="_blank" rel="noreferrer">Get a Custom Quote</a>
         <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
           {menuOpen ? '×' : '☰'}
         </button>
       </nav>
 
       <div className={`mobile-menu ${menuOpen ? 'open' : ''}`}>
-        {['about', 'services', 'packages', 'process', 'contact'].map((item) => (
+        {['about', 'services', 'work', 'process', 'contact'].map((item) => (
           <a key={item} href={`#${item}`} onClick={() => setMenuOpen(false)}>{item}</a>
         ))}
         <a className="mobile-quote" href={whatsappUrl} target="_blank" rel="noreferrer">Message on WhatsApp</a>
@@ -186,12 +138,12 @@ export default function App() {
                 TTW Enterprises creates sleek websites and digital marketing systems for modern brands that want to look premium, move professionally, and grow with intention.
               </p>
               <div className="hero-actions reveal" style={{ transitionDelay: '0.3s' }}>
-                <a className="button light" href={whatsappUrl} target="_blank" rel="noreferrer">Start a Project →</a>
-                <a className="button outline-light" href="#packages">View Packages</a>
+                <a className="button light" href={whatsappUrl} target="_blank" rel="noreferrer">Get a Custom Quote →</a>
+                <a className="button outline-light" href="#work">View Client Work</a>
               </div>
               <div className="mini-stats reveal" style={{ transitionDelay: '0.4s' }}>
-                <div><strong>24/7</strong><span>Your site keeps your business visible around the clock.</span></div>
-                <div><strong>Elite</strong><span>Designed to elevate how customers perceive your brand.</span></div>
+                <div><strong>Custom</strong><span>Every quote is based on the actual scope of your business.</span></div>
+                <div><strong>Direct</strong><span>Start the conversation quickly through WhatsApp.</span></div>
                 <div><strong>Accra</strong><span>Built for modern Ghanaian businesses.</span></div>
               </div>
             </div>
@@ -200,7 +152,7 @@ export default function App() {
 
         <section className="marquee-section">
           <div className="marquee-track">
-            {['Website Design', 'Digital Marketing', 'Brand Presence', 'Growth Strategy', 'Premium Builds', 'Monthly Support', 'Website Design', 'Digital Marketing', 'Brand Presence', 'Growth Strategy'].map((item, index) => (
+            {['Website Design', 'Digital Marketing', 'Brand Presence', 'Growth Strategy', 'Custom Quotes', 'WhatsApp First', 'Website Design', 'Digital Marketing', 'Brand Presence', 'Growth Strategy'].map((item, index) => (
               <span key={`${item}-${index}`}>{item}</span>
             ))}
           </div>
@@ -248,7 +200,7 @@ export default function App() {
                   <div className="service-icon">{service.icon}</div>
                   <h3>{service.title}</h3>
                   <p>{service.text}</p>
-                  <a href="#contact">Learn more →</a>
+                  <a href="#contact">Ask about this →</a>
                 </article>
               ))}
             </div>
@@ -257,52 +209,55 @@ export default function App() {
 
         <section className="stats-bar">
           <div className="container stats-grid">
+            <div className="reveal"><strong>No Menu</strong><span>Pricing is customized</span></div>
+            <div className="reveal"><strong>Scope</strong><span>Quote based on needs</span></div>
+            <div className="reveal"><strong>Fast</strong><span>WhatsApp consultation</span></div>
             <div className="reveal"><strong>Premium</strong><span>Design direction</span></div>
-            <div className="reveal"><strong>GHS 4k+</strong><span>Website builds</span></div>
-            <div className="reveal"><strong>GHS 1.2k+</strong><span>Monthly support</span></div>
-            <div className="reveal"><strong>Accra</strong><span>Ghana based</span></div>
           </div>
         </section>
 
-        <section className="section" id="packages">
+        <section className="section" id="quote">
           <div className="container">
             <div className="section-top reveal">
               <div>
-                <div className="section-pill">Packages</div>
-                <h2>Pricing built for different <em>growth stages</em>.</h2>
+                <div className="section-pill">Custom Quotes</div>
+                <h2>Services are shaped around your <em>actual</em> business.</h2>
               </div>
-              <a href={whatsappUrl} target="_blank" rel="noreferrer">Ask for a quote →</a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">Get a custom quote →</a>
             </div>
-            <div className="package-grid">
-              {packages.map((item, index) => (
-                <article className={`package-card stagger ${item.featured ? 'featured' : ''}`} style={{ transitionDelay: `${index * 0.08}s` }} key={item.name}>
-                  {item.featured && <div className="badge">Most Popular</div>}
+            <div className="quote-grid">
+              {quoteOptions.map((item, index) => (
+                <article className={`quote-card stagger ${item.featured ? 'featured' : ''}`} style={{ transitionDelay: `${index * 0.08}s` }} key={item.name}>
+                  {item.featured && <div className="badge">Popular Scope</div>}
                   <h3>{item.name}</h3>
-                  <div className="price">{item.price}</div>
-                  <p className="monthly">{item.monthly}</p>
                   <p className="description">{item.description}</p>
                   <ul>{item.features.map((feature) => <li key={feature}>{feature}</li>)}</ul>
+                  <a href={whatsappUrl} target="_blank" rel="noreferrer">Discuss this on WhatsApp →</a>
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="section showcase-section">
+        <section className="section showcase-section" id="work">
           <div className="container">
             <div className="section-top reveal">
               <div>
-                <div className="section-pill">Featured Work</div>
-                <h2>What TTW can build for your <em>brand</em>.</h2>
+                <div className="section-pill">Client Work</div>
+                <h2>Real work and directions TTW can build for your <em>brand</em>.</h2>
               </div>
-              <a href="#contact">Start yours →</a>
+              <a href={whatsappUrl} target="_blank" rel="noreferrer">Start yours →</a>
             </div>
             <div className="showcase-grid">
-              {showcaseItems.map(([title, text], index) => (
-                <article className="showcase-card stagger" key={title} style={{ transitionDelay: `${index * 0.08}s` }}>
+              {showcaseItems.map((item, index) => (
+                <article className="showcase-card portfolio-card stagger" key={item.title} style={{ transitionDelay: `${index * 0.08}s` }}>
+                  <span className="work-label">{item.label}</span>
                   <div className="showcase-number">0{index + 1}</div>
-                  <h3>{title}</h3>
-                  <p>{text}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                  <a className="work-link" href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noreferrer' : undefined}>
+                    {item.href.startsWith('http') ? 'View live project →' : 'Start a similar project →'}
+                  </a>
                 </article>
               ))}
             </div>
@@ -313,7 +268,7 @@ export default function App() {
           <div className="container">
             <div className="center-heading reveal">
               <div className="section-pill">Our Process</div>
-              <h2>Simple, premium, and <em>strategy-first</em>.</h2>
+              <h2>Simple, premium, and <em>WhatsApp-first</em>.</h2>
             </div>
             <div className="process-grid">
               {processSteps.map(([number, title, text], index) => (
@@ -333,26 +288,27 @@ export default function App() {
             <div className="contact-copy reveal-left">
               <div className="pill dark">Get In Touch</div>
               <h2>Let’s make your business look like it belongs at the <em>top</em>.</h2>
-              <p>Tell us about your project and we’ll help you shape a premium digital presence that customers can trust.</p>
+              <p>Instead of fixed pricing or a long form, send us a quick WhatsApp message. We’ll recommend the right direction and quote based on your exact scope.</p>
               <div className="contact-list">
                 <div><strong>WhatsApp</strong><span>+233 50 072 9916</span></div>
                 <div><strong>Instagram</strong><span>@ttw.enterprises</span></div>
                 <div><strong>Location</strong><span>Accra, Ghana</span></div>
               </div>
-              <a className="button light whatsapp" href={whatsappUrl} target="_blank" rel="noreferrer">Message on WhatsApp</a>
             </div>
 
-            <form className="contact-form glass-dark reveal-right" onSubmit={handleSubmit}>
-              <label>Name<input name="name" value={formData.name} onChange={handleChange} required /></label>
-              <label>Email<input type="email" name="email" value={formData.email} onChange={handleChange} required /></label>
-              <label>Business<input name="business" value={formData.business} onChange={handleChange} required /></label>
-              <label>Service Needed<select name="service" value={formData.service} onChange={handleChange}>
-                <option>Website Design</option><option>Digital Marketing</option><option>Brand Presence</option><option>Growth Strategy</option><option>Multiple Services</option>
-              </select></label>
-              <label>Project Details<textarea name="message" rows="5" value={formData.message} onChange={handleChange} required /></label>
-              <button className="button light full" type="submit" disabled={loading}>{loading ? 'Sending...' : 'Send Inquiry'}</button>
-              {status && <p className="form-status">{status}</p>}
-            </form>
+            <div className="whatsapp-panel glass-dark reveal-right">
+              <div className="section-pill">How To Inquire</div>
+              <h3>Send these details on WhatsApp</h3>
+              <div className="prompt-list">
+                <span>Your business name</span>
+                <span>What your business does</span>
+                <span>The service you need</span>
+                <span>Your preferred timeline</span>
+                <span>Any examples or style you like</span>
+              </div>
+              <p>We’ll use that to suggest the best website, branding, or digital marketing direction and send a custom quote.</p>
+              <a className="button light full" href={whatsappUrl} target="_blank" rel="noreferrer">Get a Custom Quote on WhatsApp</a>
+            </div>
           </div>
         </section>
       </main>
@@ -364,7 +320,7 @@ export default function App() {
             <p>Premium websites and digital marketing systems for modern brands in Accra, Ghana.</p>
           </div>
           <div><h4>Services</h4><a href="#services">Website Design</a><a href="#services">Digital Marketing</a><a href="#services">Brand Presence</a><a href="#services">Growth Strategy</a></div>
-          <div><h4>Company</h4><a href="#about">About</a><a href="#packages">Packages</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
+          <div><h4>Company</h4><a href="#about">About</a><a href="#work">Client Work</a><a href="#process">Process</a><a href="#contact">Contact</a></div>
           <div><h4>Contact</h4><span>Accra, Ghana</span><span>+233 50 072 9916</span><span>@ttw.enterprises</span></div>
         </div>
         <div className="container footer-bottom">© 2026 TTW Enterprises. All rights reserved.</div>
